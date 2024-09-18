@@ -14,13 +14,23 @@ def get_message():
     print("Start 'rock-paper-scissors' game")
 
 def get_player_hand():
-    print("Input your hand choice") #input message to prompt user to input his hand and return the choosen index.
-    input_message = ''
-    for index, hand in enumerate(hands): #constructin the hand option message
-        input_message += f"{index}:{hand}"
-        if index < len(hands) - 1:
-            input_message += ', '
-    return int(input(input_message)) #returnig hand choice as an integer
+    while True:  # Keep asking for input until a valid one is provided
+        try:
+            print("Input your hand choice")  # Input message to prompt user to input their hand
+            input_message = ''
+            for index, hand in enumerate(hands):  # Constructing the hand option message
+                input_message += f"{index}: {hand}"
+                if index < len(hands) - 1:
+                    input_message += ', '
+            player_choice = int(input(input_message))  # Attempt to convert input to integer
+
+            if 0 <= player_choice < len(hands):  # Check if the input is a valid hand choice
+                return player_choice  # Return the valid hand choice
+            else:
+                print("Invalid choice. Please choose a number between 0 and 2.")
+        except ValueError:  # Catch the ValueError if the input is not an integer
+            print("Invalid input. Please enter a number.")
+
 
 def get_computer_hand(): #function to generate the random handchoice for computer
     return random.randint(0, 2) # choosing random numbers between 0 nd 2
